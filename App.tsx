@@ -1,20 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import {Platform, SafeAreaView, StatusBar, StyleSheet, Text} from 'react-native';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
+import { CalculatorScreens } from './src/screens/CalculatorScreens';
+import { styles } from './src/theme/appTheme';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={[safeArea.safeArea, styles.background]}>
+      <StatusBar
+      backgroundColor={'black'}
+      barStyle= {'light-content'}
+      />
+      <CalculatorScreens/>
+    </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+const safeArea = StyleSheet.create({
+    safeArea:{
+      paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : getStatusBarHeight(),
+    }
 });
